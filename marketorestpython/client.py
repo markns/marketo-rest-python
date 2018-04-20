@@ -4857,6 +4857,7 @@ class MarketoClient:
             state_info[state]['method'], self.host + f'/bulk/v1/{entity}/export/{job_id}'+state_info[state]['suffix'], args, mode='nojson')
         if state is 'file' and result.status_code is 200:
             return result.content
+        result = json.loads(result.text)
         if not result['success']:
             raise MarketoException(result['errors'][0])
         return result['result']
